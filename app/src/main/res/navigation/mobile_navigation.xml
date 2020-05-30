@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.bascubazarapp.ui.home.HomeFragment"
+        android:label="Inicio"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
+            app:destination="@id/nav_home_second" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_home_second"
+        android:name="com.example.bascubazarapp.ui.home.HomeSecondFragment"
+        android:label="@string/home_second"
+        tools:layout="@layout/fragment_home_second">
+        <action
+            android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
+            app:destination="@id/nav_home" />
+
+        <argument
+            android:name="myArg"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_categorias"
+        android:name="com.example.bascubazarapp.ui.categorias.CategoriasFragment"
+        android:label="Categorias"
+        tools:layout="@layout/fragment_categorias" />
+    <fragment
+        android:id="@+id/nav_lista_productos"
+        android:name="com.example.bascubazarapp.ui.producto.ListaProductosFragment"
+        android:label="fragment_lista_productos"
+        tools:layout="@layout/fragment_lista_productos" />
+    <fragment
+        android:id="@+id/nav_producto"
+        android:name="com.example.bascubazarapp.ui.producto.Producto"
+        android:label="fragment_producto"
+        tools:layout="@layout/fragment_producto" />
+    <fragment
+        android:id="@+id/nav_busqueda"
+        android:name="com.example.bascubazarapp.ui.busqueda.BusquedaFragment"
+        android:label="Busqueda"
+        tools:layout="@layout/fragment_busqueda" />
+    <fragment
+        android:id="@+id/nav_perfil"
+        android:name="com.example.bascubazarapp.ui.perfil.PerfilFragment"
+        android:label="Perfil"
+        tools:layout="@layout/fragment_perfil" />
+    <fragment
+        android:id="@+id/nav_compras"
+        android:name="com.example.bascubazarapp.ui.compras.ComprasFragment"
+        android:label="Mis Compras"
+        tools:layout="@layout/fragment_compras" />
+</navigation>
