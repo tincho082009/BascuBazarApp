@@ -27,6 +27,7 @@ import java.util.SimpleTimeZone;
 public class CategoriasFragment extends Fragment {
     private CategoriasViewModel vm;
     private ListView lv;
+    private List<Integer> lista = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,12 @@ public class CategoriasFragment extends Fragment {
             public void onChanged(List<String> strings) {
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, strings);
                 lv.setAdapter(adapter);
+            }
+        });
+        vm.getListaId().observe(this, new Observer<List<Integer>>() {
+            @Override
+            public void onChanged(List<Integer> integers) {
+                lista = integers;
             }
         });
     }
@@ -52,7 +59,10 @@ public class CategoriasFragment extends Fragment {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Navigation.findNavController(view).navigate(R.id.nav_lista_productos);
+                Bundle bundle = new Bundle();
+                String x = lista.get(position) + "";
+                bundle.putString("id", x);
+                Navigation.findNavController(view).navigate(R.id.nav_lista_productos, bundle);
             }
         });
         return view;

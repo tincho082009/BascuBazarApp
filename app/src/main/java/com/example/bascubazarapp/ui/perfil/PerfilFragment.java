@@ -3,64 +3,95 @@ package com.example.bascubazarapp.ui.perfil;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.bascubazarapp.R;
+import com.example.bascubazarapp.modelos.Usuario;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PerfilFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class PerfilFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public PerfilFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PerfilFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PerfilFragment newInstance(String param1, String param2) {
-        PerfilFragment fragment = new PerfilFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private EditText etDni, etApellido, etNombre, etTelefono, etEmail, etContrasenia;
+    private Button btnEditarPerfil;
+    private PerfilViewModel vm;
+    private Usuario u = new Usuario();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        vm = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(PerfilViewModel.class);
+
+        vm.getPropietario().observe(this, new Observer<Usuario>() {
+            @Override
+            public void onChanged(Usuario user) {
+                etDni.setText(user.getDni());
+                etApellido.setText(user.getApellido());
+                etNombre.setText(user.getNombre());
+                etTelefono.setText(user.getTelefono());
+                etEmail.setText(user.getEmail());
+                etContrasenia.setText(user.getClave());
+
+                u.setUsuarioId(user.getUsuarioId());
+                u.setDni(user.getDni());
+                u.setApellido(user.getApellido());
+                u.setNombre(user.getNombre());
+                u.setTelefono(user.getTelefono());
+                u.setEmail(user.getEmail());
+                u.setClave(user.getClave());
+            }
+        });
+        vm.getEstado().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                etDni.setEnabled(aBoolean);
+                etApellido.setEnabled(aBoolean);
+                etNombre.setEnabled(aBoolean);
+                etTelefono.setEnabled(aBoolean);
+                etEmail.setEnabled(aBoolean);
+                etContrasenia.setEnabled(aBoolean);
+            }
+        });
+        vm.getTextoBoton().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                btnEditarPerfil.setText(s);
+            }
+        });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_perfil, container, false);
+        View root =  inflater.inflate(R.layout.fragment_perfil, container, false);
+        etDni = root.findViewById(R.id.etDni);
+        etApellido = root.findViewById(R.id.etApellido);
+        etNombre = root.findViewById(R.id.etNombre);
+        etTelefono = root.findViewById(R.id.etTelefono);
+        etEmail = root.findViewById(R.id.etEmailPerfil);
+        etContrasenia = root.findViewById(R.id.etClavePerfil);
+        btnEditarPerfil = root.findViewById(R.id.btnEditarPerfil);
+
+        vm.rellenar();
+
+        btnEditarPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                u.setDni(etDni.getText().toString());
+                u.setApellido(etApellido.getText().toString());
+                u.setNombre(etNombre.getText().toString());
+                u.setTelefono(etTelefono.getText().toString());
+                u.setEmail(etEmail.getText().toString());
+                u.setClave(etContrasenia.getText().toString());
+                vm.guardar(u);
+                vm.editar();
+            }
+        });
+        return root;
     }
 }

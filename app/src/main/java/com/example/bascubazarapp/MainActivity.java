@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -53,23 +55,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-                Toast.makeText(MainActivity.this, "Expand", Toast.LENGTH_LONG).show();
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                Toast.makeText(MainActivity.this, "Collapse", Toast.LENGTH_LONG).show();
-                return true;
-            }
-        };
-
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-
-        searchItem.setOnActionExpandListener(onActionExpandListener);
         return true;
     }
 

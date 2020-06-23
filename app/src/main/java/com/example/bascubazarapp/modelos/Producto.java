@@ -1,27 +1,30 @@
 package com.example.bascubazarapp.modelos;
 
 public class Producto {
-    private int id;
+    private int productoId;
     private double precio;
-    private String tipo;
     private String color;
     private String descripcion;
     private String observaciones;
 
-    public Producto(double precio, String tipo, String color, String descripcion, String observaciones) {
+
+    public Producto() {
+    }
+
+    public Producto(int productoId, double precio, String color, String descripcion, String observaciones) {
+        this.productoId = productoId;
         this.precio = precio;
-        this.tipo = tipo;
         this.color = color;
         this.descripcion = descripcion;
         this.observaciones = observaciones;
     }
 
-    public int getId() {
-        return id;
+    public int getProductoId() {
+        return productoId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setProductoId(int productoId) {
+        this.productoId = productoId;
     }
 
     public double getPrecio() {
@@ -30,14 +33,6 @@ public class Producto {
 
     public void setPrecio(double precio) {
         this.precio = precio;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public String getColor() {
@@ -64,15 +59,4 @@ public class Producto {
         this.observaciones = observaciones;
     }
 
-    @Override
-    public String toString() {
-        return "Producto{" +
-                "id=" + id +
-                ", precio=" + precio +
-                ", tipo='" + tipo + '\'' +
-                ", color='" + color + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", observaciones='" + observaciones + '\'' +
-                '}';
-    }
 }

@@ -37,12 +37,12 @@
     <fragment
         android:id="@+id/nav_lista_productos"
         android:name="com.example.bascubazarapp.ui.producto.ListaProductosFragment"
-        android:label="fragment_lista_productos"
+        android:label="Productos"
         tools:layout="@layout/fragment_lista_productos" />
     <fragment
         android:id="@+id/nav_producto"
-        android:name="com.example.bascubazarapp.ui.producto.Producto"
-        android:label="fragment_producto"
+        android:name="com.example.bascubazarapp.ui.producto.ProductoFragment"
+        android:label="Producto"
         tools:layout="@layout/fragment_producto" />
     <fragment
         android:id="@+id/nav_busqueda"

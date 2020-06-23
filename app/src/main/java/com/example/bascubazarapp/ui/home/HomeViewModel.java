@@ -27,9 +27,10 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     public void cargarDatos(){
-        ArrayList<Producto> lista = new ArrayList<>();
+        /*ArrayList<Producto> lista = new ArrayList<>();
         lista.add(new Producto(100.0, "mate", "rosa", "Mate ddss Rosa", "ESTA LINDO"));
         lista.add(new Producto(200.0, "mate", "rosa", "Mate ssgg Rosa", "ESTA LINDO"));
         listaProductos.setValue(lista);
+         */
     }
 }
