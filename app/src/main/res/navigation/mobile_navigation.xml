@@ -59,4 +59,14 @@
         android:name="com.example.bascubazarapp.ui.compras.ComprasFragment"
         android:label="Mis Compras"
         tools:layout="@layout/fragment_compras" />
+    <fragment
+        android:id="@+id/nav_carrito"
+        android:name="com.example.bascubazarapp.ui.carrito.CarritoFragment"
+        android:label="Carrito"
+        tools:layout="@layout/fragment_carrito" />
+    <fragment
+        android:id="@+id/nav_salida"
+        android:name="com.example.bascubazarapp.ui.logout.SalidaFragment"
+        android:label="Salir"
+        tools:layout="@layout/fragment_salida" />
 </navigation>

@@ -3,7 +3,9 @@ package com.example.bascubazarapp.request;
 import android.util.Log;
 
 import com.example.bascubazarapp.modelos.Categoria;
+import com.example.bascubazarapp.modelos.Compra;
 import com.example.bascubazarapp.modelos.Producto;
+import com.example.bascubazarapp.modelos.ProductoCompra;
 import com.example.bascubazarapp.modelos.Usuario;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,7 +25,7 @@ import retrofit2.http.Path;
 
 public class ApiClient {
 
-    private static final String PATH="http://192.168.0.31:45455/api/";
+    private static final String PATH="http://192.168.1.105:45457/api/";
     private static  MyApiInterface myApiInteface;
 
     public static MyApiInterface getMyApiClient(){
@@ -53,29 +55,25 @@ public class ApiClient {
         @GET("Categoria")
         Call<List<Categoria>> obtenerCategorias(@Header("Authorization") String token);
 
+        @GET("Producto")
+        Call<List<Producto>> obtenerTodosProductos(@Header("Authorization") String token);
+
         @GET("Producto/search/{categoriaId}")
         Call<List<Producto>> obtenerProductoXCategoria(@Header("Authorization") String token, @Path("categoriaId") int categoriaId);
 
         @GET("Producto/{id}")
         Call<Producto> obtenerProducto(@Header("Authorization") String token, @Path("id") int id);
 
-      /*  @GET("Inmueble")
-        Call<List<Inmueble>> obtenerMisInmuebles(@Header("Authorization") String token);
+        @GET("ProductoCompra")
+        Call<List<ProductoCompra>> obtenerProductoComprado(@Header("Authorization") String token);
 
-        @PUT("Inmueble/{id}")
-        Call<Inmueble> editarInmueble(@Header("Authorization") String token, @Path("id") int id, @Body Inmueble i);
+        @POST("Compra")
+        Call<Compra> crearCompra(@Header("Authorization") String token, @Body Compra entidad);
+
+        @POST("ProductoCompra")
+        Call<ProductoCompra> crearComprarProducto(@Header("Authorization") String token, @Body ProductoCompra entidad);
 
 
-
-        @GET("ContratoAlquiler/{id}")
-        Call<ContratoAlquiler>  obtenerContratoPorInmueble(@Header("Authorization") String token, @Path("id") int id);
-
-        @DELETE("Inmueble/{id}")
-        Call<String> borrarInmueble(@Header("Authorization") String token, @Path("id") int id);
-
-        @POST("Inmueble")
-        Call<Inmueble> agregarInmueble(@Header("Authorization") String token, @Body Inmueble inm);
-       */
 
     }
 

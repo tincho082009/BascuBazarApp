@@ -73,6 +73,11 @@ public class LoginViewModel extends AndroidViewModel {
                     editor.putString("token",t);
                     editor.commit();
 
+                    SharedPreferences preferences= contexto.getSharedPreferences("indicador",0);
+                    SharedPreferences.Editor edit= preferences.edit();
+                    edit.putInt("numero",1);
+                    edit.commit();
+
                     Intent i = new Intent(getApplication(), MainActivity.class);
                     i.addFlags(FLAG_ACTIVITY_NEW_TASK);
                     getApplication().startActivity(i);
