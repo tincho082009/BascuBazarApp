@@ -23,6 +23,7 @@ import retrofit2.Response;
 
 public class HomeViewModel extends AndroidViewModel {
     private MutableLiveData<List<Producto>> listaProductos;
+    private MutableLiveData<List<Integer>> listaId;
     private Context context;
 
     public HomeViewModel(@NonNull Application application) {
@@ -37,8 +38,15 @@ public class HomeViewModel extends AndroidViewModel {
         return listaProductos;
     }
 
+    public LiveData<List<Integer>> getListaId(){
+        if(listaId == null){
+            listaId = new MutableLiveData<>();
+        }
+        return  listaId;
+    }
+
     public void cargarDatos(){
-        int id = (int) Math.random()*5+1;
+        int id = (int) (Math.random()*5+1);
         SharedPreferences pref = context.getSharedPreferences("token", 0);
         String t = pref.getString("token", "vacio");
 
@@ -51,6 +59,7 @@ public class HomeViewModel extends AndroidViewModel {
                     for (Producto p: response.body()) {
                         lista.add(p.getProductoId());
                     }
+                    listaId.setValue(lista);
                     listaProductos.setValue(response.body());
                 }else{
                     Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
@@ -63,10 +72,6 @@ public class HomeViewModel extends AndroidViewModel {
                 Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-        /*ArrayList<Producto> lista = new ArrayList<>();
-        lista.add(new Producto(100.0, "mate", "rosa", "Mate ddss Rosa", "ESTA LINDO"));
-        lista.add(new Producto(200.0, "mate", "rosa", "Mate ssgg Rosa", "ESTA LINDO"));
-        listaProductos.setValue(lista);
-         */
     }
+
 }
