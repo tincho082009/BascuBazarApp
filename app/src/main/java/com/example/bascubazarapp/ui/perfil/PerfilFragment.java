@@ -53,7 +53,7 @@ public class PerfilFragment extends Fragment {
                 etNombre.setEnabled(aBoolean);
                 etTelefono.setEnabled(aBoolean);
                 etEmail.setEnabled(aBoolean);
-                etContrasenia.setEnabled(aBoolean);
+                etContrasenia.setEnabled(false);
             }
         });
         vm.getTextoBoton().observe(this, new Observer<String>() {

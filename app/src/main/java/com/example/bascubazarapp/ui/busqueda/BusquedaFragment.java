@@ -8,6 +8,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -23,18 +25,30 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.bascubazarapp.R;
+import com.example.bascubazarapp.adapters.ListProductoAdapter;
+import com.example.bascubazarapp.modelos.Producto;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BusquedaFragment extends Fragment {
     private ListView lv;
-    ArrayList<String> lista = new ArrayList<>();
-
+    ArrayAdapter<String> adapter;
+    private BusquedaViewModel vm;
+    private List<Integer> lista = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+        vm = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(BusquedaViewModel.class);
+        vm.getListaProducto().observe(this, new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> strings) {
+                adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, strings);
+                lv.setAdapter(adapter);
+            }
+        });
     }
 
     @Override
@@ -43,22 +57,36 @@ public class BusquedaFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_busqueda, container, false);
         lv = root.findViewById(R.id.lvListadoBusqueda);
+        vm.cargarDatos();
         lv.setClickable(true);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView tv = (TextView)view;
-                Navigation.findNavController(view).navigate(R.id.nav_lista_productos);
+                vm.navegar(tv.getText().toString(), view);
             }
         });
-        lista.add("ASDASD");
-        lista.add("Nose");
-        lista.add("Dinosaurio");
-        lista.add("Pomelo");
-        lista.add("Porteñito");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, lista);
-        lv.setAdapter(adapter);
         return root;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Busca aqui!!!");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return true;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }
 

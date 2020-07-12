@@ -13,6 +13,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.bascubazarapp.modelos.Compra;
+import com.example.bascubazarapp.modelos.Foto;
 import com.example.bascubazarapp.modelos.Producto;
 import com.example.bascubazarapp.modelos.ProductoCompra;
 import com.example.bascubazarapp.request.ApiClient;
@@ -30,6 +31,7 @@ public class ProductoViewModel extends AndroidViewModel {
     private Context context;
     private MutableLiveData<Producto> producto;
     private Compra c = new Compra();
+    private  MutableLiveData<Foto> productoFoto;
     private ProductoCompra pc = new ProductoCompra();
 
     public LiveData<Producto> getProducto(){
@@ -37,6 +39,13 @@ public class ProductoViewModel extends AndroidViewModel {
             producto = new MutableLiveData<>();
         }
         return producto;
+    }
+
+    public LiveData<Foto> getProductoFoto(){
+        if (productoFoto==null){
+            productoFoto = new MutableLiveData<>();
+        }
+        return productoFoto;
     }
 
     public ProductoViewModel(@NonNull Application application) {
@@ -64,6 +73,25 @@ public class ProductoViewModel extends AndroidViewModel {
                 Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+        Call<List<Foto>> fotos = ApiClient.getMyApiClient().obtenerFotosProducto(t, id);
+        fotos.enqueue(new Callback<List<Foto>>() {
+            @Override
+            public void onResponse(Call<List<Foto>> call, Response<List<Foto>> response) {
+                if(response.isSuccessful()){
+                    for (Foto f:response.body()) {
+                        productoFoto.setValue(f);
+                    }
+                }else{
+                    Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Foto>> call, Throwable t) {
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
     public void comprar(ProductoCompra productoCompra){

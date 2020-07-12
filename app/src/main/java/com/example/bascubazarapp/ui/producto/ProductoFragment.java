@@ -11,24 +11,34 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.bascubazarapp.R;
+import com.example.bascubazarapp.modelos.Foto;
 import com.example.bascubazarapp.modelos.Producto;
 import com.example.bascubazarapp.modelos.ProductoCompra;
 
+import java.util.List;
+
 
 public class ProductoFragment extends Fragment {
+    private ImageView foto;
     private TextView tvDescripcion, tvPrecio, tvColor, tvObservaciones;
     private EditText etCantidad;
     private Button btnComprar, btnAgregarCarrito;
     private ProductoViewModel vm;
     private String id;
+    private String PATH="http://192.168.1.111:45455";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,6 +53,15 @@ public class ProductoFragment extends Fragment {
                 tvObservaciones.setText(producto.getObservaciones());
             }
         });
+        vm.getProductoFoto().observe(this, new Observer<Foto>() {
+            @Override
+            public void onChanged(Foto fotos) {
+                Glide.with(getContext())
+                        .load(PATH + fotos.getUrl())
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(foto);
+            }
+        });
 
     }
 
@@ -51,6 +70,7 @@ public class ProductoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_producto, container, false);
+        foto = root.findViewById(R.id.imvProducto);
         tvDescripcion = root.findViewById(R.id.tvDescripcionProducto);
         tvPrecio = root.findViewById(R.id.tvPrecioProducto);
         etCantidad = root.findViewById(R.id.etCantidadProducto);
@@ -86,5 +106,4 @@ public class ProductoFragment extends Fragment {
         });
         return root;
     }
-
 }
