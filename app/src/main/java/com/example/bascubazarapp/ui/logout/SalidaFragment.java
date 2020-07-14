@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
@@ -14,6 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.bascubazarapp.R;
+import com.example.bascubazarapp.modelos.CarritoEntity;
+
+import java.util.List;
 
 public class SalidaFragment extends Fragment {
     private View v;
@@ -24,7 +28,12 @@ public class SalidaFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         vm = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(SalidaViewModel.class);
-
+        vm.getAllCarrito().observe(this, new Observer<List<CarritoEntity>>() {
+            @Override
+            public void onChanged(List<CarritoEntity> carritoEntities) {
+                vm.cargar(carritoEntities);
+            }
+        });
     }
 
     @Override

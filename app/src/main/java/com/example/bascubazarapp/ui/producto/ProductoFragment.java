@@ -38,7 +38,7 @@ public class ProductoFragment extends Fragment {
     private Button btnComprar, btnAgregarCarrito;
     private ProductoViewModel vm;
     private String id;
-    private String PATH="http://192.168.1.111:45455";
+    private String PATH="http://192.168.1.107:45455";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

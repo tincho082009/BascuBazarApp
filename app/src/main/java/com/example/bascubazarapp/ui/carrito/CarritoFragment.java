@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -30,13 +31,13 @@ import com.example.bascubazarapp.modelos.Producto;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.app.Activity.RESULT_OK;
 
 public class CarritoFragment extends Fragment {
     private ListView lv;
     private CarritoViewModel vm;
     private List<Integer> lista = new ArrayList<>();
-
+    private List<CarritoEntity> carritoEntitiesNuevo = new ArrayList<>();
+    private Button btnBorrar, btnComprar;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,10 +53,16 @@ public class CarritoFragment extends Fragment {
          vm.getAllCarrito().observe(this, new Observer<List<CarritoEntity>>() {
             @Override
             public void onChanged(List<CarritoEntity> carritoEntities) {
-                Toast.makeText(getContext(), carritoEntities.size() + "", Toast.LENGTH_LONG).show();
+                carritoEntitiesNuevo = carritoEntities;
+                vm.cargarDatos(carritoEntities);
             }
         });
-
+        vm.getCantidadItem().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                Toast.makeText(getContext(), integer + "", Toast.LENGTH_LONG).show();
+            }
+        });
         vm.getListaId().observe(this, new Observer<List<Integer>>() {
             @Override
             public void onChanged(List<Integer> integers) {
@@ -73,16 +80,28 @@ public class CarritoFragment extends Fragment {
         int id = getArguments().getInt("id");
         int cantidad = getArguments().getInt("cantidad");
         vm.guardarDatos(id, cantidad);
-        vm.cargarDatos();
         lv.setClickable(true);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               /* Bundle bundle = new Bundle();
+               Bundle bundle = new Bundle();
                 String nose = lista.get(position) + "";
                 bundle.putString("id", nose);
                 Navigation.findNavController(view).navigate(R.id.nav_producto, bundle);
-                */
+            }
+        });
+        btnBorrar = view.findViewById(R.id.btnBorrarProductoCarrito);
+        btnBorrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vm.borrar();
+            }
+        });
+        btnComprar = view.findViewById(R.id.btnComprarTodo);
+        btnComprar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vm.comprar(carritoEntitiesNuevo);
             }
         });
         return view;

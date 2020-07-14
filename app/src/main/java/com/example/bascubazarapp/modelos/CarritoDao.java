@@ -13,10 +13,13 @@ import java.util.List;
 public interface CarritoDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void agregarProductoCarrito(CarritoEntity carritoEntities);
+    void agregarProductoCarrito(CarritoEntity...carritoEntities);
 
     @Query("SELECT * FROM carrito_tabla")
     LiveData<List<CarritoEntity>> getProductosEnCarrito();
+
+    @Query("SELECT COUNT(*) FROM carrito_tabla")
+    LiveData<Integer> cantidadItems();
 
     @Delete
     void borrarProducto(CarritoEntity carritoEntity);

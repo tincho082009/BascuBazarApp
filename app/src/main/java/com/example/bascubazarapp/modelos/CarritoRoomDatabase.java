@@ -13,27 +13,20 @@ import java.util.concurrent.Executors;
 
 @Database(version = 1, entities = {CarritoEntity.class}, exportSchema = false)
 public abstract class CarritoRoomDatabase extends RoomDatabase {
-    abstract public CarritoDao getCarritoDao();
-    private static volatile CarritoRoomDatabase INSTANCE;
-    private static final int NUMBER_OF_THREADS = 4;
-    public static final ExecutorService databaseWriteExecutor =
-            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+    private static CarritoRoomDatabase dbCarritoInstance;
 
-    public static CarritoRoomDatabase getDatabase(final Context context) {
-        if (INSTANCE == null) {
-            synchronized (CarritoRoomDatabase.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+    public static synchronized CarritoRoomDatabase getIntance(Context context) {
+        if (dbCarritoInstance == null) {
+            dbCarritoInstance = Room.databaseBuilder(context.getApplicationContext(),
                             CarritoRoomDatabase.class, "carrito_database")
-                            .addCallback(sRoomDatabaseCallback)
                             .build();
-
-                }
-            }
         }
-        return INSTANCE;
+        return dbCarritoInstance;
     }
-   private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
+
+    public abstract CarritoDao getCarritoDao();
+
+   /*private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
@@ -46,4 +39,6 @@ public abstract class CarritoRoomDatabase extends RoomDatabase {
             });
         }
     };
+
+    */
 }
