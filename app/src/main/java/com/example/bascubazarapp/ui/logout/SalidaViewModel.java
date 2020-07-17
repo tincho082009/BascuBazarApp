@@ -19,7 +19,6 @@ public class SalidaViewModel extends AndroidViewModel {
     private Context context;
     private LiveData<List<CarritoEntity>> mAllCarrito;
     private CarritoRepository mRepository;
-    private List<CarritoEntity> segundaLista;
 
     public SalidaViewModel(@NonNull Application application) {
         super(application);
@@ -32,17 +31,8 @@ public class SalidaViewModel extends AndroidViewModel {
         return mAllCarrito;
     }
 
-    public void cargar(List<CarritoEntity> lis){
-        segundaLista = lis;
-    }
 
     public void borrarDatos(){
-        if(segundaLista != null){
-            for (CarritoEntity ce:segundaLista
-                 ) {
-                mRepository.borrarUno(ce);
-            }
-        }
-
+        mRepository.borrarAll();
     }
 }

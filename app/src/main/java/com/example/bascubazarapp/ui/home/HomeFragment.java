@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -115,6 +116,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         MenuItem menuItem = menu.findItem(R.id.action_carrito);
+        MenuItem menuItem2 = menu.findItem(R.id.action_search);
         menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -122,6 +124,13 @@ public class HomeFragment extends Fragment {
                 bundle.putInt("id", 0);
                 bundle.putInt("cantidad",  0);
                 Navigation.findNavController(vistaNueva).navigate(R.id.nav_carrito, bundle);
+                return true;
+            }
+        });
+        menuItem2.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Navigation.findNavController(vistaNueva).navigate(R.id.nav_busqueda);
                 return true;
             }
         });

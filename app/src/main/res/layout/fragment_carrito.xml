@@ -6,48 +6,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.carrito.CarritoFragment">
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/textView19"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Productos agregados al carrito"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ListView
-            android:id="@+id/lvProductosEnCarrito"
-            android:layout_width="wrap_content"
-            android:layout_height="600dp"
+            app:layout_constraintBottom_toTopOf="@+id/rvListaCarrito"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView19">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
 
-        </ListView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvListaCarrito"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
         <Button
             android:id="@+id/btnBorrarProductoCarrito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="64dp"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/boton_redondeado"
             android:text="Borrar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lvProductosEnCarrito" />
+            android:textColor="#f5f5f5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvListaCarrito" />
 
         <Button
             android:id="@+id/btnComprarTodo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="44dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/boton_redondeado"
             android:text="Comprar"
-            app:layout_constraintEnd_toStartOf="@+id/btnBorrarProductoCarrito"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lvProductosEnCarrito" />
+            android:textColor="#f5f5f5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.059"
+            app:layout_constraintStart_toEndOf="@+id/btnBorrarProductoCarrito"
+            app:layout_constraintTop_toBottomOf="@+id/rvListaCarrito" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

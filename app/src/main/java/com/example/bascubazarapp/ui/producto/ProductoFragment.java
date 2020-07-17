@@ -38,11 +38,13 @@ public class ProductoFragment extends Fragment {
     private Button btnComprar, btnAgregarCarrito;
     private ProductoViewModel vm;
     private String id;
-    private String PATH="http://192.168.1.107:45455";
+    private View v;
+    private String PATH="http://192.168.1.100:45455";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         vm = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(ProductoViewModel.class);
         vm.getProducto().observe(this, new Observer<Producto>() {
             @Override
@@ -70,6 +72,7 @@ public class ProductoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_producto, container, false);
+        v = root;
         foto = root.findViewById(R.id.imvProducto);
         tvDescripcion = root.findViewById(R.id.tvDescripcionProducto);
         tvPrecio = root.findViewById(R.id.tvPrecioProducto);
@@ -105,5 +108,29 @@ public class ProductoFragment extends Fragment {
             }
         });
         return root;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        MenuItem menuItem = menu.findItem(R.id.action_carrito);
+        MenuItem menuItem2 = menu.findItem(R.id.action_search);
+        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", 0);
+                bundle.putInt("cantidad",  0);
+                Navigation.findNavController(v).navigate(R.id.nav_carrito, bundle);
+                return true;
+            }
+        });
+        menuItem2.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Navigation.findNavController(v).navigate(R.id.nav_busqueda);
+                return true;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

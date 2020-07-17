@@ -36,6 +36,7 @@ public class BusquedaFragment extends Fragment {
     ArrayAdapter<String> adapter;
     private BusquedaViewModel vm;
     private List<Integer> lista = new ArrayList<>();
+    private View v;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class BusquedaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_busqueda, container, false);
+        v = root;
         lv = root.findViewById(R.id.lvListadoBusqueda);
         vm.cargarDatos();
         lv.setClickable(true);
@@ -72,6 +74,7 @@ public class BusquedaFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         MenuItem menuItem = menu.findItem(R.id.action_search);
+        MenuItem menuItem2 = menu.findItem(R.id.action_carrito);
         SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setQueryHint("Busca aqui!!!");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -83,6 +86,16 @@ public class BusquedaFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 adapter.getFilter().filter(newText);
+                return true;
+            }
+        });
+        menuItem2.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", 0);
+                bundle.putInt("cantidad",  0);
+                Navigation.findNavController(v).navigate(R.id.nav_carrito, bundle);
                 return true;
             }
         });

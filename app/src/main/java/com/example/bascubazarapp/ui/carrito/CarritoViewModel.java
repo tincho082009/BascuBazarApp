@@ -9,9 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.room.Room;
 
-import com.example.bascubazarapp.modelos.CarritoRoomDatabase;
 import com.example.bascubazarapp.modelos.CarritoEntity;
 import com.example.bascubazarapp.modelos.Compra;
 import com.example.bascubazarapp.modelos.Producto;
@@ -28,13 +26,11 @@ import retrofit2.Response;
 
 public class CarritoViewModel extends AndroidViewModel {
     private Context context;
-    private MutableLiveData<List<Producto>> listaProductos;
-    private MutableLiveData<List<Integer>> listaId;
+    private MutableLiveData<List<CarritoEntity>> listCarritoMutable;
     private CarritoRepository mRepository;
     private LiveData<List<CarritoEntity>> mAllCarrito;
     private LiveData<Integer> mCantidadItem;
     private List<CarritoEntity> listilla2;
-    private CarritoEntity carritoEntity;
     private ProductoCompra pc;
 
     public CarritoViewModel(@NonNull Application application) {
@@ -51,18 +47,11 @@ public class CarritoViewModel extends AndroidViewModel {
 
     public LiveData<Integer> getCantidadItem(){ return mCantidadItem;}
 
-    public LiveData<List<Integer>> getListaId(){
-        if(listaId == null){
-            listaId = new MutableLiveData<>();
+    public MutableLiveData<List<CarritoEntity>> getListCarritoMutable(){
+        if(listCarritoMutable == null){
+            listCarritoMutable = new MutableLiveData<>();
         }
-        return  listaId;
-    }
-
-    public LiveData<List<Producto>> getListaProducto(){
-        if(listaProductos == null) {
-            listaProductos = new MutableLiveData<>();
-        }
-        return listaProductos;
+        return listCarritoMutable;
     }
 
     public void guardarDatos(int idProducto, int cant) {
@@ -79,33 +68,7 @@ public class CarritoViewModel extends AndroidViewModel {
         if(listilla == null){
             Toast.makeText(context, "No se puede lola", Toast.LENGTH_LONG).show();
         }else{
-            Call<List<Producto>> productos = ApiClient.getMyApiClient().obtenerTodosProductos(t);
-            productos.enqueue(new Callback<List<Producto>>() {
-                @Override
-                public void onResponse(Call<List<Producto>> call, Response<List<Producto>> response) {
-                    if(response.isSuccessful()){
-                        List<Producto> listita = new ArrayList<>();
-                        List<Integer> ids = new ArrayList<>();
-                        for (Producto p: response.body()) {
-                            for (CarritoEntity ca: listilla) {
-                                if(p.getProductoId() == ca.getIdProducto()){
-                                    ids.add(p.getProductoId());
-                                    listita.add(p);
-                                }
-                            }
-                        }
-                        listaId.setValue(ids);
-                        listaProductos.setValue(listita);
-                    }else{
-                        Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<List<Producto>> call, Throwable t) {
-                    Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            });
+            listCarritoMutable.setValue(listilla);
         }
     }
 
@@ -120,7 +83,7 @@ public class CarritoViewModel extends AndroidViewModel {
         listilla2 = listilla;
 
         Compra c = new Compra();
-        c.setFechaCompra("2020-07-13T16:56:00Z");
+        c.setFechaCompra("2020-07-16T16:00:00Z");
         c.setEstado(false);
 
         Call<Compra> compras = ApiClient.getMyApiClient().crearCompra(t, c);

@@ -46,12 +46,10 @@ public class ComprasViewModel extends AndroidViewModel {
             @Override
             public void onResponse(Call<List<ProductoCompra>> call, Response<List<ProductoCompra>> response) {
                 if(response.isSuccessful()){
-                    List<ProductoCompra> a = response.body();
                     listaProductos.setValue(response.body());
                 }else{
                     Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
                 }
-
             }
 
             @Override

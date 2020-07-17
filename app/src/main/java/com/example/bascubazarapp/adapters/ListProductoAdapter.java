@@ -30,7 +30,7 @@ public class ListProductoAdapter extends ArrayAdapter<Producto> {
     private Context context;
     private List<Producto> lista;
     private LayoutInflater li;
-    private String PATH="http://192.168.1.107:45455";
+    private String PATH="http://192.168.1.100:45455";
 
     public ListProductoAdapter(@NonNull Context context, int resource, @NonNull List<Producto> objects, LayoutInflater li) {
         super(context, resource, objects);
