@@ -28,8 +28,27 @@
         android:id="@+id/tvPrecioItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="24dp"
+        android:textSize="20dp"
+        app:layout_constraintStart_toEndOf="@+id/textView24"
+        app:layout_constraintTop_toBottomOf="@+id/tvNombreItem" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivFotoItem" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
+        android:text="$"
+        android:textSize="20dp"
         app:layout_constraintStart_toEndOf="@+id/ivFotoItem"
         app:layout_constraintTop_toBottomOf="@+id/tvNombreItem" />
 </androidx.constraintlayout.widget.ConstraintLayout>

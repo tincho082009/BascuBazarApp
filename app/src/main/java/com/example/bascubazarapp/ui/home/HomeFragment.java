@@ -33,7 +33,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     private HomeViewModel vm;
     private ListView lv;
-    private ImageButton ibMates, ibTazas, ibRopa, ibMas;
+    private ImageButton ibMates, ibTazas, ibRopa, ibMas, ibMaceta;
     private List<Integer> lista = new ArrayList<>();
     private View vistaNueva;
 
@@ -64,6 +64,7 @@ public class HomeFragment extends Fragment {
         ibMates = view.findViewById(R.id.ibMates);
         ibTazas = view.findViewById(R.id.ibTazas);
         ibRopa = view.findViewById(R.id.ibRopa);
+        ibMaceta = view.findViewById(R.id.ibMaceta);
         ibMas = view.findViewById(R.id.ibCargarMas);
         ibMates.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +89,15 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 String x = 2 + "";
+                bundle.putString("id", x);
+                Navigation.findNavController(v).navigate(R.id.nav_lista_productos, bundle);
+            }
+        });
+        ibMaceta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                String x = 6 + "";
                 bundle.putString("id", x);
                 Navigation.findNavController(v).navigate(R.id.nav_lista_productos, bundle);
             }

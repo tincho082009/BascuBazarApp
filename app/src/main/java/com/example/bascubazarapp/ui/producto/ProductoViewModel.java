@@ -98,7 +98,12 @@ public class ProductoViewModel extends AndroidViewModel {
         pc = productoCompra;
         SharedPreferences pref = context.getSharedPreferences("token", 0);
         final String t = pref.getString("token", "vacio");
-        c.setFechaCompra("2020-07-16T16:00:00Z");
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            c.setFechaCompra(LocalDate.now() + "");
+        }else{
+            c.setFechaCompra("2020-07-21T15:00:00Z");
+        }
         c.setEstado(false);
 
         Call<Compra> comprita = ApiClient.getMyApiClient().crearCompra(t, c);

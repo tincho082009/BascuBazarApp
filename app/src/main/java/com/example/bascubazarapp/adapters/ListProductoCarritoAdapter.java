@@ -36,7 +36,7 @@ public class ListProductoCarritoAdapter extends RecyclerView.Adapter<ListProduct
     private List<CarritoEntity> lista;
     private View.OnClickListener listener;
     private Context context;
-    private String PATH="http://192.168.1.100:45455";
+    private String PATH="http://192.168.1.105:45455";
 
     public ListProductoCarritoAdapter(List<CarritoEntity> lista, Context context) {
         this.lista = lista;

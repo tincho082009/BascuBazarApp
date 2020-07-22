@@ -22,47 +22,52 @@
             android:id="@+id/tvPrecioProducto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
             android:textSize="20dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView25"
             app:layout_constraintTop_toBottomOf="@+id/tvDescripcionProducto" />
 
         <Button
             android:id="@+id/btnComprarProducto"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="52dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/boton_redondeado"
             android:text="Comprar"
             android:textColor="#f5f5f5"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
         <Button
             android:id="@+id/btnAgregarCarrito"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="46dp"
-            android:background="@drawable/boton_redondeado"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+
+            android:background="@drawable/boton_redondeado_secundario"
             android:text="Agregar al carrito"
-            android:textColor="#f5f5f5"
-            app:layout_constraintStart_toEndOf="@+id/btnComprarProducto"
-            app:layout_constraintTop_toBottomOf="@+id/etCantidadProducto" />
+            android:textColor="#001A77"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnComprarProducto" />
 
         <TextView
             android:id="@+id/textView17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="Color:"
             android:textColor="#000000"
             android:textSize="15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPrecioProducto" />
+            app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
         <TextView
             android:id="@+id/tvColorProducto"
@@ -81,7 +86,7 @@
             android:layout_marginTop="15dp"
             android:autoSizeTextType="uniform"
             android:textColor="#000000"
-            android:textSize="30dp"
+            android:textSize="25dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imvProducto" />
 
@@ -124,11 +129,23 @@
             android:layout_height="42dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
-            android:ems="10"
             android:backgroundTint="#001A77"
+            android:ems="10"
             android:hint="Cantidad"
             android:inputType="number"
+            android:text="1"
             app:layout_constraintStart_toEndOf="@+id/textView18"
             app:layout_constraintTop_toBottomOf="@+id/tvObservacionesProducto" />
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:text="$"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescripcionProducto" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

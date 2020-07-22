@@ -20,25 +20,11 @@ public abstract class CarritoRoomDatabase extends RoomDatabase {
             dbCarritoInstance = Room.databaseBuilder(context.getApplicationContext(),
                             CarritoRoomDatabase.class, "carrito_database")
                             .build();
+
         }
         return dbCarritoInstance;
     }
 
     public abstract CarritoDao getCarritoDao();
 
-   /*private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
-        @Override
-        public void onOpen(@NonNull SupportSQLiteDatabase db) {
-            super.onOpen(db);
-            databaseWriteExecutor.execute(() -> {
-                CarritoDao dao = INSTANCE.getCarritoDao();
-                dao.borrarTodo();
-
-                CarritoEntity ca = new CarritoEntity(1, 2);
-                dao.agregarProductoCarrito(ca);
-            });
-        }
-    };
-
-    */
 }

@@ -39,7 +39,7 @@ public class ProductoFragment extends Fragment {
     private ProductoViewModel vm;
     private String id;
     private View v;
-    private String PATH="http://192.168.1.100:45455";
+    private String PATH="http://192.168.1.105:45455";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

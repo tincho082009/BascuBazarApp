@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.bascubazarapp.R;
+import com.example.bascubazarapp.modelos.Compra;
 import com.example.bascubazarapp.modelos.Foto;
 import com.example.bascubazarapp.modelos.Producto;
 import com.example.bascubazarapp.modelos.ProductoCompra;
@@ -33,7 +34,7 @@ public class ListProductoCompradoAdapter extends ArrayAdapter<ProductoCompra> {
     private Context context;
     private List<ProductoCompra> lista;
     private LayoutInflater li;
-    private String PATH="http://192.168.1.100:45455";
+    private String PATH="http://192.168.1.105:45455";
 
 
     public ListProductoCompradoAdapter(@NonNull Context context, int resource, @NonNull List<ProductoCompra> objects, LayoutInflater li) {
@@ -68,6 +69,24 @@ public class ListProductoCompradoAdapter extends ArrayAdapter<ProductoCompra> {
                                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                                 .into(foto);
                     }
+                    Call<Compra> compraCall = ApiClient.getMyApiClient().obtenerCompraPorId(t, productoCompra.getCompraId());
+                    compraCall.enqueue(new Callback<Compra>() {
+                        @Override
+                        public void onResponse(Call<Compra> call, Response<Compra> response) {
+                            if(response.isSuccessful()){
+                                TextView fecha = item2.findViewById(R.id.tvFechaCompra);
+                                String[] fech = response.body().getFechaCompra().split("T");
+                                fecha.setText(fech[0]);
+                            }else{
+                                Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Compra> call, Throwable t) {
+                            Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }else{
                     Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
                 }

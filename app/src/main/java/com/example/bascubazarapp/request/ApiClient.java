@@ -26,7 +26,7 @@ import retrofit2.http.Path;
 
 public class ApiClient {
 
-    private static final String PATH="http://192.168.1.100:45455/api/";
+    private static final String PATH="http://192.168.1.105:45455/api/";
     private static  MyApiInterface myApiInteface;
 
     public static MyApiInterface getMyApiClient(){
@@ -73,6 +73,9 @@ public class ApiClient {
 
         @GET("Foto/{id}")
         Call<List<Foto>> obtenerFotosProducto(@Header("Authorization") String token, @Path("id") int id);
+
+        @GET("Compra/{id}")
+        Call<Compra> obtenerCompraPorId(@Header("Authorization") String token, @Path("id") int id);
 
         @POST("Compra")
         Call<Compra> crearCompra(@Header("Authorization") String token, @Body Compra entidad);
